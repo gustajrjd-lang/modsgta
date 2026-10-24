@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bad Dos Trenzinhos | Dashboard</title>
+<style>
+:root{--bg:#0b0b0f;--panel:#15151c;--line:#2d2d38;--red:#ed3038;--text:#f5f5f7;--muted:#9999a8;--green:#38d996}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Segoe UI,Arial,sans-serif}
+button,input,textarea,select{font:inherit}
+a{color:#ff777d;text-decoration:none}
+.layout{display:grid;grid-template-columns:235px 1fr;min-height:100vh}
+aside{background:#101015;border-right:1px solid var(--line);padding:25px 17px}
+.brand{font-weight:900;font-size:15px;line-height:1.7;margin-bottom:38px}
+.brand span{display:inline-grid;place-items:center;background:var(--red);width:38px;height:38px;border-radius:12px;margin-right:9px}
+.navtitle{font-size:10px;color:#737380;letter-spacing:1.5px;margin:25px 10px 10px}
+nav a{display:block;padding:13px 12px;border-radius:9px;color:#aaaab6;font-size:13px;margin:5px 0}
+nav a.active,nav a:hover{background:#ed30381a;color:white;border-left:3px solid var(--red)}
+main{padding:30px;min-width:0}
+header{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:28px}
+.eyebrow{color:#ff535b;font-size:10px;font-weight:bold;letter-spacing:2px}
+h1{font-size:30px;margin:8px 0}
+.muted{color:var(--muted);font-size:12px;line-height:1.6}
+button{cursor:pointer;border:0;border-radius:9px;padding:12px 15px;font-weight:750}
+.primary{background:var(--red);color:white}
+.secondary{background:#25252e;color:white;border:1px solid #383844}
+.danger{background:#35191d;color:#ff898e;border:1px solid #702a30;width:100%;margin-top:auto}
+.hero{background:linear-gradient(115deg,#321318,#17141b);border:1px solid #54252c;border-radius:16px;padding:25px;margin-bottom:20px}
+.hero h2{margin:0 0 9px;font-size:21px}
+.hero p{color:#c4b7bc;font-size:13px;line-height:1.7;max-width:650px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-bottom:30px}
+.stat,.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;min-width:0}
+.stat-label{font-size:12px;color:var(--muted)}
+.stat-value{font-size:30px;font-weight:850;margin-top:13px}
+.green{color:var(--green)}
+h2{font-size:19px}
+.grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(250px,.9fr);gap:17px;align-items:start}
+label{display:block;font-size:12px;font-weight:bold;margin:15px 0 7px}
+input,textarea,select{width:100%;padding:12px;background:#0d0d12;border:1px solid #383843;border-radius:9px;color:white;outline:none}
+input:focus,textarea:focus,select:focus{border-color:var(--red)}
+textarea{min-height:90px;resize:vertical}
+input[type=file]{font-size:11px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.hint{font-size:10px;color:var(--muted);margin-top:6px;line-height:1.5}
+#mensagem{font-size:12px;overflow-wrap:anywhere}
+.ok{color:var(--green)}.error{color:#ff777d}
+.tip{background:#101015;border:1px solid var(--line);padding:14px;border-radius:10px;margin:12px 0}
+.tip strong{font-size:12px}.tip p{font-size:11px;color:var(--muted);line-height:1.6}
+.listhead{display:flex;justify-content:space-between;align-items:center;gap:15px}
+.search{max-width:270px}
+#listaMods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin-top:17px}
+.mod{display:flex;flex-direction:column;background:#1b1b23;border:1px solid #33333e;border-radius:12px;padding:13px;min-width:0;overflow-wrap:anywhere}
+.mod img{width:100%;height:150px;object-fit:cover;border-radius:8px;margin-bottom:12px}
+.mod h3{font-size:14px;margin:0 0 9px}
+.mod p{font-size:12px;color:#b0b0bd;line-height:1.6}
+.tag{display:inline-block;background:#30191d;color:#ff9ba0;border-radius:30px;padding:5px 9px;font-size:10px;margin:0 5px 5px 0}
+.empty{grid-column:1/-1;text-align:center;padding:25px;border:1px dashed #444;border-radius:10px;color:var(--muted);font-size:12px}
+.download{font-size:12px;margin:8px 0 13px}
+#status{font-size:12px;color:var(--muted)}
+@media(max-width:900px){.layout{grid-template-columns:190px 1fr}.grid{grid-template-columns:1fr}main{padding:20px}}
+@media(max-width:650px){.layout{grid-template-columns:1fr}aside{padding:15px}.brand{margin-bottom:12px}nav{display:flex;overflow:auto}nav a{white-space:nowrap} .navtitle{display:none}main{padding:15px}header{align-items:flex-start;flex-direction:column}.stats{gap:8px}.stat{padding:12px}.stat-value{font-size:23px}.stat-label{font-size:11px}.row{grid-template-columns:1fr}#listaMods{grid-template-columns:1fr}.listhead{align-items:stretch;flex-direction:column}.search{max-width:none}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside>
+  <div class="brand"><span>B</span> BAD DOS<br> TRENZINHOS</div>
+  <div class="navtitle">MENU PRINCIPAL</div>
+  <nav>
+    <a class="active" href="#inicio">▦ &nbsp; Dashboard</a>
+    <a href="#cadastro">＋ &nbsp; Cadastrar mod</a>
+    <a href="#mods">▤ &nbsp; Meus mods</a>
+    <a href="/">↗ &nbsp; Abrir catálogo</a>
+  </nav>
+  <div class="navtitle">SISTEMA</div>
+  <p class="muted">● Painel administrativo</p>
+  <p id="status">Verificando conexão...</p>
+</aside>
+
+<main id="inicio">
+<header>
+  <div><div class="eyebrow">CENTRAL DE GERENCIAMENTO</div><h1>Dashboard</h1><div class="muted">Gerencie os mods do seu catálogo em um só lugar.</div></div>
+  <button class="secondary" id="sair">Sair da conta</button>
+</header>
+
+<section class="hero">
+  <h2>Bem-vindo ao seu painel! 🔥</h2>
+  <p>Cadastre carretas, barcos, mapas e skins. As alterações são sincronizadas com o catálogo automaticamente.</p>
+  <a href="#cadastro"><button class="primary">＋ Cadastrar novo mod</button></a>
+</section>
+
+<section class="stats">
+  <div class="stat"><div class="stat-label">TOTAL DE MODS</div><div class="stat-value" id="totalMods">—</div><div class="muted">Itens cadastrados</div></div>
+  <div class="stat"><div class="stat-label">CATEGORIAS</div><div class="stat-value" id="totalCategorias">4</div><div class="muted">Tipos disponíveis</div></div>
+  <div class="stat"><div class="stat-label">CONEXÃO</div><div class="stat-value green" id="estadoConexao" style="font-size:22px">Aguardando</div><div class="muted">Estado em tempo real</div></div>
+</section>
+
+<div class="grid" id="cadastro">
+<section class="panel">
+  <h2>＋ Cadastrar novo mod</h2>
+  <p class="muted">Preencha os campos para publicar no catálogo.</p>
+  <form id="formMod">
+    <label for="nome">Nome do mod</label>
+    <input id="nome" name="nome" maxlength="120" required placeholder="Ex.: Carreta personalizada">
+    <label for="descricao">Descrição</label>
+    <textarea id="descricao" name="descricao" maxlength="2000" required placeholder="Descreva o conteúdo do mod..."></textarea>
+    <label for="categoria">Categoria</label>
+    <select id="categoria" name="categoria" required>
+      <option value="">Escolha uma categoria</option>
+      <option>Carretas</option><option>Barcos</option><option>Mapas</option><option>Skins</option>
+    </select>
+    <div class="row">
+      <div><label for="imagem">Imagem de capa</label><input id="imagem" name="imagem" type="file" accept="image/jpeg,image/png,image/webp" required><div class="hint">JPG, PNG ou WEBP · até 10 MB</div></div>
+      <div><label for="arquivo">Arquivo do mod</label><input id="arquivo" name="arquivo" type="file" accept=".zip,.rar,.7z" required><div class="hint">ZIP, RAR ou 7Z · até 100 MB</div></div>
+    </div>
+    <button class="primary" id="btnEnviar" type="submit" style="width:100%;margin-top:20px">Cadastrar mod ↗</button>
+  </form>
+  <p id="mensagem" role="status" aria-live="polite"></p>
+</section>
+
+<section class="panel">
+  <h2>Guia rápido</h2>
+  <p class="muted">Dicas para manter seu catálogo organizado.</p>
+  <div class="tip"><strong>① Capa de qualidade</strong><p>Use uma imagem nítida e que mostre o mod claramente.</p></div>
+  <div class="tip"><strong>② Arquivo correto</strong><p>Confira se o arquivo selecionado é ZIP, RAR ou 7Z.</p></div>
+  <div class="tip"><strong>③ Revise antes de cadastrar</strong><p>Confira nome, descrição e categoria antes de enviar.</p></div>
+</section>
+</div>
+
+<section class="panel" id="mods" style="margin-top:20px">
+  <div class="listhead"><div><h2>Mods cadastrados</h2><p class="muted">Pesquise, confira e exclua os itens existentes.</p></div><input class="search" id="buscaMods" type="search" placeholder="Buscar nome ou categoria..."></div>
+  <div id="listaMods"><div class="empty">Carregando mods...</div></div>
+</section>
+<p class="muted" style="text-align:center;margin-top:25px">BAD DOS TRENZINHOS · PAINEL ADMINISTRATIVO</p>
+</main>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+const statusEl=document.getElementById('status');
+const mensagem=document.getElementById('mensagem');
+const form=document.getElementById('formMod');
+const btnEnviar=document.getElementById('btnEnviar');
+const listaMods=document.getElementById('listaMods');
+const buscaMods=document.getElementById('buscaMods');
+let modsCache=[];
+
+function msg(texto,tipo=''){mensagem.textContent=texto;mensagem.className=tipo;}
+
+async function verificarAcesso(){
+  try{
+    const r=await fetch('/api/admin',{cache:'no-store'});
+    if(r.status===401){location.href='/admin.html';return false;}
+    if(!r.ok)throw Error();
+    statusEl.textContent='● Sessão autenticada';
+    return true;
+  }catch(e){statusEl.textContent='Não foi possível verificar o servidor.';return false;}
+}
+
+function renderizarMods(){
+  const termo=buscaMods.value.trim().toLocaleLowerCase('pt-BR');
+  const mods=modsCache.filter(m=>String(m.name||'').toLocaleLowerCase('pt-BR').includes(termo)||String(m.category||'').toLocaleLowerCase('pt-BR').includes(termo));
+  listaMods.replaceChildren();
+  if(!mods.length){
+    const v=document.createElement('div');v.className='empty';
+    v.textContent=modsCache.length?'Nenhum mod encontrado nessa busca.':'Nenhum mod cadastrado ainda.';
+    listaMods.append(v);return;
+  }
+  mods.forEach(mod=>{
+    const item=document.createElement('article');item.className='mod';
+    if(mod.image){
+      const img=document.createElement('img');img.src=mod.image;img.alt='Capa de '+(mod.name||'mod');img.loading='lazy';
+      img.onerror=()=>img.style.display='none';item.append(img);
+    }
+    const h=document.createElement('h3');h.textContent=mod.name||'Mod sem nome';item.append(h);
+    const tags=document.createElement('div');
+    const cat=document.createElement('span');cat.className='tag';cat.textContent=mod.category||'Sem categoria';
+    const id=document.createElement('span');id.className='tag';id.textContent='ID '+mod.id;
+    tags.append(cat,id);item.append(tags);
+    const d=document.createElement('p');d.textContent=mod.description||'Sem descrição.';item.append(d);
+    if(mod.download){
+      const a=document.createElement('a');a.className='download';a.href=mod.download;a.textContent='↧ Ver arquivo do mod';a.setAttribute('download','');item.append(a);
+    }
+    const b=document.createElement('button');b.className='danger';b.textContent='Excluir mod';
+    b.addEventListener('click',()=>excluirMod(mod.id,mod.name||'Mod sem nome',b));item.append(b);
+    listaMods.append(item);
+  });
+}
+
+async function carregarMods(){
+  try{
+    const r=await fetch('/api/mods',{cache:'no-store'});
+    if(!r.ok)throw Error();
+    const dados=await r.json();modsCache=Array.isArray(dados)?dados:[];
+    document.getElementById('totalMods').textContent=modsCache.length;
+    document.getElementById('totalCategorias').textContent=new Set(modsCache.map(m=>m.category).filter(Boolean)).size;
+    renderizarMods();
+  }catch(e){
+    listaMods.innerHTML='<div class="empty">Erro ao carregar. Confira se o servidor está ligado.</div>';
+    document.getElementById('totalMods').textContent='—';
+  }
+}
+
+async function excluirMod(id,nome,botao){
+  if(!confirm('Deseja realmente excluir "'+nome+'" do site? Essa ação não pode ser desfeita.'))return;
+  botao.disabled=true;botao.textContent='Excluindo...';msg('');
+  try{
+    const r=await fetch('/api/mods/'+encodeURIComponent(id),{method:'DELETE'});
+    const resultado=await r.json();
+    if(r.status===401){location.href='/admin.html';return;}
+    if(!r.ok)throw Error(resultado.erro||'Não foi possível excluir.');
+    msg(resultado.mensagem||'Mod excluído com sucesso!','ok');await carregarMods();
+  }catch(e){msg(e.message||'Erro ao excluir.','error');botao.disabled=false;botao.textContent='Excluir mod';}
+}
+
+form.addEventListener('submit',async event=>{
+  event.preventDefault();msg('');
+  if(!form.reportValidity())return;
+  const imagem=document.getElementById('imagem').files[0];
+  const arquivo=document.getElementById('arquivo').files[0];
+  const categoria=document.getElementById('categoria').value;
+  if(!['Carretas','Barcos','Mapas','Skins'].includes(categoria)){msg('Escolha uma categoria válida.','error');return;}
+  if(!imagem||!['image/jpeg','image/png','image/webp'].includes(imagem.type)){msg('Escolha uma imagem JPG, PNG ou WEBP válida.','error');return;}
+  if(!arquivo||!['zip','rar','7z'].includes(arquivo.name.split('.').pop().toLowerCase())){msg('O arquivo precisa ser ZIP, RAR ou 7Z.','error');return;}
+  if(imagem.size>10*1024*1024){msg('A imagem deve ter até 10 MB.','error');return;}
+  if(arquivo.size>100*1024*1024){msg('O arquivo do mod deve ter até 100 MB.','error');return;}
+  btnEnviar.disabled=true;btnEnviar.textContent='Enviando...';
+  try{
+    const r=await fetch('/api/mods',{method:'POST',body:new FormData(form)});
+    const resultado=await r.json();
+    if(r.status===401){location.href='/admin.html';return;}
+    if(!r.ok)throw Error(resultado.erro||'Não foi possível cadastrar.');
+    msg('Mod cadastrado com sucesso!','ok');form.reset();await carregarMods();
+  }catch(e){msg(e.message||'Erro ao enviar o mod.','error');}
+  finally{btnEnviar.disabled=false;btnEnviar.textContent='Cadastrar mod ↗';}
+});
+
+document.getElementById('sair').addEventListener('click',async()=>{
+  try{await fetch('/api/logout',{method:'POST'});}finally{location.href='/admin.html';}
+});
+buscaMods.addEventListener('input',renderizarMods);
+
+try{
+  const socket=io();
+  socket.on('connect',()=>{const e=document.getElementById('estadoConexao');e.textContent='Online';e.className='stat-value green';});
+  socket.on('disconnect',()=>{const e=document.getElementById('estadoConexao');e.textContent='Offline';e.className='stat-value';});
+  socket.on('mods:updated',carregarMods);
+}catch(e){document.getElementById('estadoConexao').textContent='Indisponível';}
+
+(async()=>{if(await verificarAcesso())await carregarMods();})();
+</script>
+</body>
+</html>
